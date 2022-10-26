@@ -1,3 +1,5 @@
+from datetime import datetime, timezone
+import django
 from django.db import models
 
 # Create your models here.
@@ -19,7 +21,7 @@ class Song(models.Model):
     title = models.CharField(max_length=200, blank= False,  null=True)
     date_released = models.DateTimeField()
     likes = models.IntegerField(default=0)
-    artiste_id = models.ForeignKey(Artiste, on_delete=models.CASCADE)
+    artiste_id = models.ForeignKey(Artiste, related_name='artist_detail', on_delete=models.CASCADE)
 
     class Meta:
         ordering = ['title']
@@ -33,7 +35,7 @@ class Song(models.Model):
 
 class Lyric(models.Model): 
     content = models.CharField(max_length=2000, blank= False,  null=True)
-    song_id = models.ForeignKey(Song, on_delete=models.CASCADE)
+    song_id = models.ForeignKey(Song, related_name='song_detail', on_delete=models.CASCADE)
 
     class Meta:
         ordering = ['song_id']
